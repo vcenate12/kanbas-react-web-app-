@@ -7,13 +7,15 @@ import { IoMdArrowDropdownCircle } from "react-icons/io";
 import { FiPlus } from "react-icons/fi";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import { IoEllipsisVertical } from "react-icons/io5";
- 
+import { useParams } from "react-router";
+import * as db from "../../Database";
+ import { Link } from "react-router-dom";
 
 export default function Assignments() {
+  const { cid } = useParams();
+  const assignments = db.assignments;
     return (
-
-    
-      <div id="wd-assignments">
+      <div id="wd-assignments">      
 
     <div className="d-flex justify-content-between mb-3">
       
@@ -42,41 +44,29 @@ export default function Assignments() {
             <FiPlus />
             <IoEllipsisVertical className="fs-4" /></div>
           </div>
+
+          
           </li>
+
+          {assignments
+        .filter((assignment: any) => assignment.course === cid)
+        .map((assignment: any) => (
         <li className="wd-assignment list-group-item p-3 ps-1">
         <BsGripVertical className="me-2 fs-3" /> <MdEditNote className="me-2 fs-3"  />
-        <a className="wd-assignment-link" href="#/Kanbas/Courses/1234/Assignments/123">
-       A1 
-            </a>
+        <a className="wd-assignment-link" href={`#/Kanbas/Courses/${assignment.course}/Assignments/${assignment._id}`}>
+  {assignment.title}
+</a>
+
+       
             <LessonControlButtons />
             <div className="wd-assignment list-group-item p-3 ps-1">
-          Multiple Modules | <b>Not available until</b> May 6 at 12:00am | <b>Due</b> May 13 at 11:59pm | 100 pts
+          Multiple Modules | <b>Not available until</b> {assignment.availabledate} | <b>Due</b> {assignment.duedate} | {assignment.points} pts
           </div>
+        
           </li> 
+        ))}
           
-          <li className="wd-assignment-list-item list-group-item p-3 ps-1">
-          <BsGripVertical className="me-2 fs-3" /> <MdEditNote className="me-2 fs-3" />
-          <a className="wd-assignment-link"
-              href="#/Kanbas/Courses/1234/Assignments/123">
-            A2
-            </a><LessonControlButtons />
-          </li>
-
-          <div className="wd-lesson list-group-item p-3 ps-1">
-          Multiple Modules | <b>Not available until</b> May 13 at 12:00am | <b>Due</b> May 20 at 11:59pm | 100 pts
-          </div>
-
-        <li className="wd-assignment-list-item list-group-item p-3 ps-1">
-        <BsGripVertical className="me-2 fs-3" />
-        <MdEditNote className="me-2 fs-3" /><a className="wd-assignment-link"
-              href="#/Kanbas/Courses/1234/Assignments/123">
-           A3
-            </a>
-            <LessonControlButtons />
-          </li>
-          <div className="wd-lesson list-group-item p-3 ps-1">
-          Multiple Modules | <b>Not available until</b> May 20 at 12:00am | <b>Due</b> May 27 at 11:59pm | 100 pts
-          </div>
+         
         </ul>
         </div>
       
