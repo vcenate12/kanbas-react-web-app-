@@ -9,7 +9,18 @@ import { HiMagnifyingGlass } from "react-icons/hi2";
 import { IoEllipsisVertical } from "react-icons/io5";
 import { useParams } from "react-router";
 import * as db from "../../Database";
- import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="Kanbas/Courses/:course/Assignments/:assignmentId"   />
+      </Routes>
+    </Router>
+  );
+}
 
 export default function Assignments() {
   const { cid } = useParams();
@@ -68,6 +79,8 @@ export default function Assignments() {
           
          
         </ul>
+
+        
         </div>
       
   );}
